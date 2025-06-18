@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiciosNQN - Portal Gratuito de Profesionales en Neuquén</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --gray-light: #f3f4f6;
+            --gray: #6b7280;
+            --dark: #1f2937;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #059669;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 4rem 0;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid transparent;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+            top: -100%;
+            left: -100%;
+        }
+
+        .category-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            background: linear-gradient(135deg, #f8f9ff 0%, #f3e8ff 100%);
+        }
+
+        .category-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover .icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .category-card h3 {
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        /* Professionals Section */
+        .professionals {
+            padding: 4rem 0;
+            background: var(--gray-light);
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .professionals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .professional-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .professional-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .professional-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .pro-header {
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .pro-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .pro-info {
+            flex: 1;
+        }
+
+        .pro-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .verified-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            margin-left: 0.5rem;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 2px 12px rgba(16, 185, 129, 0.5); }
+        }
+
+        .pro-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            text-shadow: 0 0 3px rgba(251, 191, 36, 0.5);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .pro-categories {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .category-tag {
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            color: #6b46c1;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+
+        .pro-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            padding: 0 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .gallery-item::after {
+            content: '🖼️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .pro-contact {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(to right, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .view-profile-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .view-profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Profile Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: var(--gray);
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .close:hover {
+            color: var(--dark);
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-content {
+            padding: 2rem;
+        }
+
+        .profile-section {
+            margin-bottom: 2rem;
+        }
+
+        .profile-section h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-btn {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128c7e;
+        }
+
+        .call-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .call-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-image {
+            aspect-ratio: 16/9;
+            background: var(--gray-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--gray);
+        }
+
+        .reviews {
+            margin-top: 2rem;
+        }
+
+        .review-card {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+        }
+
+        .review-date {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .review-text {
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        /* Registration Form */
+        .register-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .services-select {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Chat Bot */
+        .chat-bot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 4px 30px rgba(102, 126, 234, 0.5); }
+            100% { box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); }
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-container {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            background: white;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .quick-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .quick-option {
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quick-option:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Donation Section */
+        .donation-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            margin: 2rem 0;
+        }
+
+        .donation-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .donation-section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        .donation-info {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+        }
+
+        .alias-box {
+            background: white;
+            color: #667eea;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .alias-box:hover {
+            transform: scale(1.05);
+        }
+
+        .donate-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
+        }
+
+        .donate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.4);
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: #9ca3af;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .professionals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .services-select {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                ServiciosNQN 
+                <span>Portal Gratuito</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#categorias">Categorías</a></li>
+                <li><a href="#profesionales">Profesionales</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#" class="btn btn-secondary" onclick="openModal('registerModal')">Registrarme Gratis</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="inicio">
+            <div class="container">
+                <h1>Encuentra los Mejores Profesionales de Neuquén</h1>
+                <p>Portal gratuito donde conectás directamente con expertos calificados. Sin intermediarios, sin comisiones.</p>
+                <div class="hero-buttons">
+                    <a href="#profesionales" class="btn btn-primary">Buscar Profesional</a>
+                    <a href="#" class="btn btn-secondary" onclick="openModal('registerModal')">Ofrecer mis Servicios</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories" id="categorias">
+            <div class="container">
+                <h2 class="section-title">Categorías de Servicios</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('plomeria')">
+                        <div class="icon">🔧</div>
+                        <h3>Plomería</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('electricidad')">
+                        <div class="icon">💡</div>
+                        <h3>Electricidad</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('construccion')">
+                        <div class="icon">🏗️</div>
+                        <h3>Construcción</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('mecanica')">
+                        <div class="icon">🚗</div>
+                        <h3>Mecánica Automotriz</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('plagas')">
+                        <div class="icon">🐜</div>
+                        <h3>Control de Plagas</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('motos')">
+                        <div class="icon">🏍️</div>
+                        <h3>Mecánica de Motos</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('soldadura')">
+                        <div class="icon">⚡</div>
+                        <h3>Soldadores</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('delivery')">
+                        <div class="icon">🚚</div>
+                        <h3>Repartidores</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('domotica')">
+                        <div class="icon">🏠</div>
+                        <h3>Domótica</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('carpinteria')">
+                        <div class="icon">🪵</div>
+                        <h3>Carpinteros</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('electrodomesticos')">
+                        <div class="icon">🔌</div>
+                        <h3>Técnico Electrodomésticos</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('climatizacion')">
+                        <div class="icon">❄️</div>
+                        <h3>Climatización</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('pintura')">
+                        <div class="icon">🎨</div>
+                        <h3>Pintura</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('jardineria')">
+                        <div class="icon">🌿</div>
+                        <h3>Jardinería</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('limpieza')">
+                        <div class="icon">🧹</div>
+                        <h3>Limpieza</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('cerrajeria')">
+                        <div class="icon">🔐</div>
+                        <h3>Cerrajería</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('gas')">
+                        <div class="icon">🔥</div>
+                        <h3>Gasista</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('veterinaria')">
+                        <div class="icon">🐾</div>
+                        <h3>Veterinaria 24/7</h3>
+                    </div>
+                    <div class="category-card" onclick="filterByCategory('mudanzas')">
+                        <div class="icon">📦</div>
+                        <h3>Mudanzas</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Professionals -->
+        <section class="professionals" id="profesionales">
+            <div class="container">
+                <h2 class="section-title">Profesionales Destacados</h2>
+                
+                <div class="filters">
+                    <button class="filter-btn active" onclick="filterProfessionals('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterProfessionals('mejor-calificados')">Mejor Calificados</button>
+                    <button class="filter-btn" onclick="filterProfessionals('mas-reseñas')">Más Reseñas</button>
+                    <button class="filter-btn" onclick="filterProfessionals('verificados')">Verificados</button>
+                    <button class="filter-btn" onclick="filterProfessionals('disponible-24h')">Disponible 24h</button>
+                </div>
+
+                <div class="professionals-grid" id="professionalsGrid">
+                    <!-- Professional Card 1 -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">CM</div>
+                            <div class="pro-info">
+                                <h3>Carlos Mendoza <span class="verified-badge">✓ Verificado</span></h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>4.9 (127 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag">Jardinería</span>
+                                    <span class="category-tag">Limpieza</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Oeste - Neuquén</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Juan Rodríguez')">Ver Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Card 4 - Veterinaria -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">MG</div>
+                            <div class="pro-info">
+                                <h3>Dra. María González <span class="verified-badge">✓ Verificado</span></h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>5.0 (203 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag">Veterinaria 24/7</span>
+                                    <span class="category-tag" style="background: #ef4444; color: white;">Emergencias</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Centro - Neuquén</span>
+                                <span style="color: #ef4444;">🚨 24hs</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Dra. María González')">Ver Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Card 5 - Construcción -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">RB</div>
+                            <div class="pro-info">
+                                <h3>Roberto Benítez <span class="verified-badge">✓ Verificado</span></h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>4.7 (156 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag">Construcción</span>
+                                    <span class="category-tag">Albañilería</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Confluencia - Neuquén</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Roberto Benítez')">Ver Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Card 6 -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">LM</div>
+                            <div class="pro-info">
+                                <h3>Laura Martínez</h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>4.9 (67 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag">Limpieza</span>
+                                    <span class="category-tag">Organización</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Centro - Neuquén</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Laura Martínez')">Ver Perfil</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="donation-section">
+                <h3>🤝 Ayudanos a Mantener el Portal Gratuito</h3>
+                <p>ServiciosNQN es y siempre será <strong>100% GRATUITO</strong> para todos.<br>
+                Sin suscripciones, sin comisiones, sin costos ocultos.</p>
+                
+                <div class="donation-info">
+                    <p>Si querés colaborar con el mantenimiento y mejora del portal,<br>
+                    podés hacer una donación voluntaria:</p>
+                    
+                    <div class="alias-box" onclick="copyAlias()">
+                        💜 Alias: serviciosnqn2025
+                    </div>
+                    
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Click para copiar</p>
+                </div>
+                
+                <button class="donate-button" onclick="showDonationInfo()">
+                    ❤️ Quiero Colaborar
+                </button>
+                
+                <p style="font-size: 0.85rem; margin-top: 1.5rem; opacity: 0.8;">
+                    Tu aporte nos ayuda a mantener los servidores, mejorar la plataforma<br>
+                    y seguir brindando este servicio gratuito a toda la comunidad de Neuquén.
+                </p>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ServiciosNQN</h3>
+                    <p>Portal gratuito que conecta a los neuquinos con profesionales de confianza. Sin comisiones, sin intermediarios.</p>
+                    <p style="margin-top: 1rem;">
+                        <strong>100% Gratuito</strong> para usuarios y profesionales
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Para Usuarios</h3>
+                    <ul>
+                        <li><a href="#">Buscar Profesionales</a></li>
+                        <li><a href="#">Categorías de Servicios</a></li>
+                        <li><a href="#">Dejar una Reseña</a></li>
+                        <li><a href="#">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Para Profesionales</h3>
+                    <ul>
+                        <li><a href="#" onclick="openModal('registerModal')">Registrarse Gratis</a></li>
+                        <li><a href="#">Actualizar Perfil</a></li>
+                        <li><a href="#">Consejos para Destacar</a></li>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ServiciosNQN. Hecho con ❤️ para la comunidad de Neuquén Capital.</p>
+            </div>
+        </div>
+    </footer>
+    </footer>
+
+    <!-- Chat Bot -->
+    <div class="chat-bot">
+        <button class="chat-toggle" onclick="toggleChat()">
+            <span id="chat-icon">💬</span>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h3>🤖 Asistente ServiciosNQN</h3>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        ¡Hola! Soy tu guía en ServiciosNQN 😊 ¿En qué puedo ayudarte?
+                    </div>
+                </div>
+                <div class="quick-options" id="quickOptions">
+                    <button class="quick-option" onclick="sendQuickMessage('¿Cómo busco un profesional?')">Buscar profesional</button>
+                    <button class="quick-option" onclick="sendQuickMessage('Quiero registrarme')">Registrarme</button>
+                    <button class="quick-option" onclick="sendQuickMessage('¿Es gratis?')">¿Es gratis?</button>
+                    <button class="quick-option" onclick="sendQuickMessage('¿Cómo funciona?')">¿Cómo funciona?</button>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu pregunta..." onkeypress="handleChatKeyPress(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            <div class="profile-header">
+                <div class="profile-avatar">CM</div>
+                <h2 id="profileName">Carlos Mendoza</h2>
+                <div class="pro-rating" style="justify-content: center;">
+                    <span class="stars">★★★★★</span>
+                    <span style="color: white;">4.9 (127 reseñas)</span>
+                </div>
+                <p style="margin-top: 0.5rem;">Plomero Matriculado - 20 años de experiencia</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-section">
+                    <h3>Información de Contacto</h3>
+                    <div class="contact-buttons">
+                        <button class="contact-btn whatsapp-btn" onclick="contactWhatsApp()">
+                            📱 WhatsApp: 299-456-7890
+                        </button>
+                        <button class="contact-btn call-btn" onclick="makeCall()">
+                            📞 Llamar: 299-456-7890
+                        </button>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--gray);">
+                        📍 Zona de trabajo: Centro, Alta Barda, Oeste - Neuquén Capital<br>
+                        🕐 Horario: Lunes a Sábado 8:00 - 20:00<br>
+                        🚨 Emergencias 24hs (con recargo)
+                    </p>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Servicios que Ofrece</h3>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li>✓ Reparación de cañerías y pérdidas</li>
+                        <li>✓ Instalación de grifería y sanitarios</li>
+                        <li>✓ Destapaciones con máquina</li>
+                        <li>✓ Instalaciones de gas (matriculado)</li>
+                        <li>✓ Termotanques y calefones</li>
+                        <li>✓ Trabajos de emergencia 24hs</li>
+                    </ul>
+                </div>
+
+                <div class="profile-section">
+                    <h3>Galería de Trabajos</h3>
+                    <div class="gallery-grid">
+                        <div class="gallery-image">🖼️</div>
+                        <div class="gallery-image">🖼️</div>
+                        <div class="gallery-image">🖼️</div>
+                        <div class="gallery-image">🖼️</div>
+                    </div>
+                </div>
+
+                <div class="profile-section reviews">
+                    <h3>Últimas Reseñas</h3>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="reviewer-name">María Fernández</span>
+                            <span class="review-date">Hace 3 días</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">Excelente trabajo! Llegó puntual y solucionó el problema rápidamente. Muy profesional y prolijo. Lo recomiendo totalmente.</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <span class="reviewer-name">Jorge Silva</span>
+                            <span class="review-date">Hace 1 semana</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">Tuve una emergencia un domingo y respondió enseguida. Precio justo y trabajo impecable. Gracias Carlos!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <div class="profile-header">
+                <h2>Registrate como Profesional</h2>
+                <p>Es gratis y siempre lo será. Sin comisiones ni costos ocultos.</p>
+            </div>
+            
+            <form class="register-form" onsubmit="handleRegistration(event)">
+                <div class="form-group">
+                    <label>Nombre Completo *</label>
+                    <input type="text" required placeholder="Ej: Juan Pérez">
+                </div>
+
+                <div class="form-group">
+                    <label>Teléfono (WhatsApp) *</label>
+                    <input type="tel" required placeholder="299-123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label>Servicios que Ofreces *</label>
+                    <div class="services-select">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="plomeria" name="services" value="plomeria">
+                            <label for="plomeria">Plomería</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="electricidad" name="services" value="electricidad">
+                            <label for="electricidad">Electricidad</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="construccion" name="services" value="construccion">
+                            <label for="construccion">Construcción</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="pintura" name="services" value="pintura">
+                            <label for="pintura">Pintura</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="jardineria" name="services" value="jardineria">
+                            <label for="jardineria">Jardinería</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="limpieza" name="services" value="limpieza">
+                            <label for="limpieza">Limpieza</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="veterinaria" name="services" value="veterinaria">
+                            <label for="veterinaria">Veterinaria</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="otros" name="services" value="otros">
+                            <label for="otros">Otros</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zona de Trabajo *</label>
+                    <input type="text" required placeholder="Ej: Centro, Alta Barda, Oeste">
+                </div>
+
+                <div class="form-group">
+                    <label>Años de Experiencia</label>
+                    <select>
+                        <option>Menos de 1 año</option>
+                        <option>1-3 años</option>
+                        <option>3-5 años</option>
+                        <option>5-10 años</option>
+                        <option>Más de 10 años</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Descripción de tus Servicios</label>
+                    <textarea rows="4" placeholder="Contá brevemente qué servicios ofreces y qué te diferencia..."></textarea>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">Acepto que ServiciosNQN es un portal gratuito de conexión y no intermedia en las transacciones</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Crear mi Perfil Gratis
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // View Profile
+        function viewProfile(name) {
+            document.getElementById('profileName').textContent = name;
+            openModal('profileModal');
+        }
+
+        // Contact Functions
+        function contactWhatsApp() {
+            window.open('https://wa.me/542994567890', '_blank');
+        }
+
+        function makeCall() {
+            window.location.href = 'tel:+542994567890';
+        }
+
+        // Filter Functions
+        function filterByCategory(category) {
+            // Aquí iría la lógica para filtrar profesionales por categoría
+            console.log('Filtrando por:', category);
+            // Scroll to professionals section
+            document.getElementById('profesionales').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterProfessionals(filter) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Aquí iría la lógica para filtrar profesionales
+            console.log('Aplicando filtro:', filter);
+        }
+
+        // Registration Handler
+        function handleRegistration(event) {
+            event.preventDefault();
+            
+            // Show loading state
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="loading"></span> Registrando...';
+            submitBtn.disabled = true;
+            
+            // Simulate registration process
+            setTimeout(() => {
+                // Show success message
+                const form = event.target;
+                form.innerHTML = `
+                    <div class="success-message">
+                        <h3>¡Registro Exitoso! 🎉</h3>
+                        <p>Tu perfil ha sido creado. Te enviaremos un email con los próximos pasos.</p>
+                        <button class="btn btn-primary" onclick="closeModal('registerModal')" style="margin-top: 1rem;">
+                            Cerrar
+                        </button>
+                    </div>
+                `;
+            }, 2000);
+        }
+
+        // Gallery View
+        function viewGallery() {
+            // Aquí iría la lógica para mostrar la galería completa
+            console.log('Mostrando galería');
+        }
+
+        // Chat Bot Functions
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            const chatIcon = document.getElementById('chat-icon');
+            
+            if (chatWindow.style.display === 'flex') {
+                chatWindow.style.display = 'none';
+                chatIcon.textContent = '💬';
+            } else {
+                chatWindow.style.display = 'flex';
+                chatIcon.textContent = '✖️';
+            }
+        }
+
+        function sendQuickMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const quickOptions = document.getElementById('quickOptions');
+            
+            // Hide quick options
+            quickOptions.style.display = 'none';
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `<div class="message-content">${message}</div>`;
+            chatMessages.appendChild(userMsg);
+            
+            // Simulate bot response
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'message bot';
+                
+                let response = '';
+                if (message.includes('busco')) {
+                    response = 'Para buscar un profesional:<br>1. Elegí una categoría de servicio<br>2. Mirá los perfiles disponibles<br>3. Revisá las calificaciones y reseñas<br>4. Contactá directamente por WhatsApp o teléfono';
+                } else if (message.includes('registrarme')) {
+                    response = 'Para registrarte es muy fácil:<br>1. Hacé click en "Registrarme Gratis"<br>2. Completá tus datos<br>3. ¡Listo! Tu perfil estará visible<br><br>Es 100% gratuito, sin comisiones ni costos ocultos.';
+                } else if (message.includes('gratis')) {
+                    response = '¡Sí! ServiciosNQN es completamente GRATUITO 🎉<br><br>✓ Sin suscripciones<br>✓ Sin comisiones<br>✓ Sin costos ocultos<br><br>Para usuarios y profesionales. Siempre.';
+                } else if (message.includes('funciona')) {
+                    response = 'Es muy simple:<br><br>1. Los profesionales crean su perfil gratis<br>2. Los usuarios buscan el servicio que necesitan<br>3. Contactan directamente al profesional<br>4. Después del trabajo, dejan su reseña<br><br>¡Sin intermediarios!';
+                }
+                
+                botMsg.innerHTML = `<div class="message-content">${response}</div>`;
+                chatMessages.appendChild(botMsg);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (message) {
+                    sendQuickMessage(message);
+                    input.value = '';
+                }
+            }
+        }
+
+        // Donation Functions
+        function copyAlias() {
+            const alias = 'serviciosnqn2025';
+            navigator.clipboard.writeText(alias).then(() => {
+                const aliasBox = document.querySelector('.alias-box');
+                const originalText = aliasBox.innerHTML;
+                aliasBox.innerHTML = '✅ ¡Alias copiado!';
+                setTimeout(() => {
+                    aliasBox.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+
+        function showDonationInfo() {
+            alert('¡Gracias por querer colaborar! 💜\n\nPodés hacer tu donación a través de:\n\n📱 Alias: serviciosnqn2025\n💳 Mercado Pago\n🏦 Transferencia bancaria\n\nTu aporte nos ayuda a mantener el portal gratuito para todos.');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some animation to professional cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all professional cards
+        document.querySelectorAll('.professional-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>">Plomería</span>
+                                    <span class="category-tag">Gas</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Centro - Neuquén</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Carlos Mendoza')">Ver Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Card 2 -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">AL</div>
+                            <div class="pro-info">
+                                <h3>Ana López <span class="verified-badge">✓ Verificado</span></h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>4.8 (89 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag">Electricidad</span>
+                                    <span class="category-tag">Aires</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pro-gallery">
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                            <div class="gallery-item" onclick="viewGallery()"></div>
+                        </div>
+                        <div class="pro-contact">
+                            <div class="contact-info">
+                                <span>📍 Alta Barda - Neuquén</span>
+                            </div>
+                            <button class="view-profile-btn" onclick="viewProfile('Ana López')">Ver Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Card 3 -->
+                    <div class="professional-card">
+                        <div class="pro-header">
+                            <div class="pro-avatar">JR</div>
+                            <div class="pro-info">
+                                <h3>Juan Rodríguez</h3>
+                                <div class="pro-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span>4.6 (45 reseñas)</span>
+                                </div>
+                                <div class="pro-categories">
+                                    <span class="category-tag
